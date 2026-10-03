@@ -69,7 +69,6 @@ async def capture_action_to_code(config, action_id, template_arg, args):
     cg.add(var.set_duration_ms(duration))
     return var
 
-
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
@@ -83,7 +82,9 @@ async def to_code(config):
     cg.add(var.set_proxy_url(config[CONF_PROXY_URL]))
     cg.add(var.set_debug_logging(config[CONF_DEBUG_LOGGING]))
 
-    # esp_websocket_client is included in ESP-IDF SDK — no extra library needed
+    # Ostateczna poprawka: Wymuszenie flagi kompilacji dla wbudowanego klienta WebSocket
+    cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
+d
 
 
 
