@@ -82,12 +82,6 @@ async def to_code(config):
     cg.add(var.set_proxy_url(config[CONF_PROXY_URL]))
     cg.add(var.set_debug_logging(config[CONF_DEBUG_LOGGING]))
 
-    # Oficjalne przywrócenie wbudowanych, wyciętych komponentów ESP-IDF dla ESPHome 2026+
-    from esphome.components.esp32 import include_builtin_idf_component
-    
-    include_builtin_idf_component("esp_websocket_client")
-    include_builtin_idf_component("esp_tls")
-
 
 
 
