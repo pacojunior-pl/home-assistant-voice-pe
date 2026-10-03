@@ -81,6 +81,9 @@ async def to_code(config):
 
     cg.add(var.set_proxy_url(config[CONF_PROXY_URL]))
     cg.add(var.set_debug_logging(config[CONF_DEBUG_LOGGING]))
+    # Ostateczne, twarde wstrzyknięcie wymagania WebSocket i TLS dla kompilatora ESP-IDF
+    cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
+    cg.add_build_flag("-DCONFIG_ESP_TLS_USING_MBEDTLS=1")
 
 
 
