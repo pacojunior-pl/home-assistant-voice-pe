@@ -84,3 +84,9 @@ async def to_code(config):
     cg.add(var.set_debug_logging(config[CONF_DEBUG_LOGGING]))
 
     # esp_websocket_client is included in ESP-IDF SDK — no extra library needed
+# Dopisz to na końcu pliku __init__.py, aby powiązać komponent z biblioteką ESP-IDF
+def to_code(config):
+    # ... istniejący kod funkcji to_code ...
+    
+    # Ta linia jawnym tekstem zmusza skrypt generujący projekt do dołączenia biblioteki
+    cv.esp_idf_require_component("esp_websocket_client")
