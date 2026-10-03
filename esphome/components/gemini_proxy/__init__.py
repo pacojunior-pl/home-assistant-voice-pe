@@ -84,7 +84,5 @@ async def to_code(config):
 
     # Ostateczna poprawka: Wymuszenie flagi kompilacji dla wbudowanego klienta WebSocket
     cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
-d
-
 
 
