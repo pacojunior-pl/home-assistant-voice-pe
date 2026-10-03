@@ -90,4 +90,13 @@ def to_code(config):
     
     # Ta linia jawnym tekstem zmusza skrypt generujący projekt do dołączenia biblioteki
     cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
+# Wymuszenie dodania modułu esp_websocket_client przez mechanizm ESP-IDF w ESPHome
+from esphome.components.esp32 import add_idf_component
+
+add_idf_component(
+    name="esp_websocket_client",
+    repo="https://github.com",
+    path="components/esp_websocket_client",
+)
+
 
