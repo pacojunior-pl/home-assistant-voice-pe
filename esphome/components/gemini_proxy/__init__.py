@@ -82,18 +82,9 @@ async def to_code(config):
     cg.add(var.set_proxy_url(config[CONF_PROXY_URL]))
     cg.add(var.set_debug_logging(config[CONF_DEBUG_LOGGING]))
 
-    # Wymuszenie dodania modułu do listy REQUIRES w pliku CMakeLists.txt generowanym przez ESPHome
-    cg.add_platformio_option("build_flags", ["-l", "esp_websocket_client"])
-    # Ta linia bezpośrednio wymusza zarejestrowanie zależności w ESP-IDF
-    from esphome.components.esp32 import add_idf_component
-    try:
-        add_idf_component(
-            name="esp_websocket_client",
-            repo="https://github.com",
-            path="components/esp_websocket_client",
-        )
-    except Exception:
-        pass
+    # Prawidłowa rejestracja wymagania komponentu ESP-IDF w module src
+    cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
+    cg.add_platformio_option("lib_deps", ["espressif/esp_websocket_client"])
 
 
 
