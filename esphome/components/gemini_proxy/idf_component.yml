@@ -1,4 +1,0 @@
-# Oficjalna rejestracja zależności w rejestrze komponentów Espressif
-dependencies:
-  espressif/esp_websocket_client:
-    version: ">=1.0.0"
