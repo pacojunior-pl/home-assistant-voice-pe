@@ -50,7 +50,7 @@ substitutions:
 esphome:
   name: home-assistant-voice
   friendly_name: Home Assistant Voice
-  name_add_mac_suffix: true
+  name_add_mac_suffix: false
   min_version: 2026.3.0
   on_boot:
     priority: 375
@@ -75,6 +75,9 @@ esp32:
   flash_size: 16MB
   framework:
     type: esp-idf
+    components:
+      - name: espressif/esp_websocket_client
+        ref: 1.3.0 
     version: recommended
     sdkconfig_options:
       CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
@@ -121,12 +124,14 @@ logger:
     sensor: WARN  # avoids logging debug sensor updates
 
 api:
-  id: api_id
+  id: api_id  # Zwykły, bezpieczny identyfikator (opcjonalny, bez znaków specjalnych)
   on_client_connected:
     - script.execute: control_leds
   on_client_disconnected:
     - script.execute: control_leds
-  encryption:   # Klucz wstrzykuje dodatek ESPHome w HA. Przy flashu z CLI patrz README (Troubleshooting).
+  encryption:
+    key: !secret api_encryption_key  # <- Tutaj powinien trafiać Twój tajny klucz z secrets.yaml
+ # Klucz wstrzykuje dodatek ESPHome w HA. Przy flashu z CLI patrz README (Troubleshooting).
 
 ota:
   - platform: esphome
@@ -1730,10 +1735,10 @@ external_components:
       - voice_kit
     refresh: 0s
   - source:
-      type: local
-      path: esphome/components
-    components:
-      - gemini_proxy
+      type: git
+      url: https://github.com/pacojunior-pl/home-assistant-voice-pe
+      ref: gemini-live-proxy
+    components: [ gemini_proxy ]
   # PR 14933 (sendspin/media_source streaming) został scalony do rdzenia ESPHome,
   # a stary fork kahrendt nie kompiluje się z ESPHome 2026.5+ (flac_decoder.h -> micro_flac).
   # Komponenty media_source i sendspin dostarcza teraz core.
