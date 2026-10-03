@@ -89,4 +89,5 @@ def to_code(config):
     # ... istniejący kod funkcji to_code ...
     
     # Ta linia jawnym tekstem zmusza skrypt generujący projekt do dołączenia biblioteki
-    cv.esp_idf_require_component("esp_websocket_client")
+    cg.add_build_flag("-DCONFIG_ESP_WEBSOCKET_CLIENT_ENABLE=1")
+
